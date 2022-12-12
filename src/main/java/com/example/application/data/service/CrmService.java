@@ -6,9 +6,10 @@ import com.example.application.data.entity.Status;
 import com.example.application.data.repository.CompanyRepository;
 import com.example.application.data.repository.ContactRepository;
 import com.example.application.data.repository.StatusRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class CrmService {
     private final ContactRepository contactRepository;
     private final CompanyRepository companyRepository;
