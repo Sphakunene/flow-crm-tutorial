@@ -1,6 +1,7 @@
 package com.example.application.views.list;
 
 import com.example.application.data.entity.Contact;
+import com.example.application.data.service.CrmService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -22,17 +24,30 @@ public class ListView extends VerticalLayout {
     TextField filter = new TextField();
 
     ContactForm contactForm;
+    @Autowired
+    private CrmService service;
 
-    public ListView() {
-       addClassName("list-view");
+    public ListView(CrmService service) {
+        this.service = service;
+        addClassName("list-view");
        setSizeFull();
        configureGrid();
        configureForm();
        add(getToolBar(),getContent());
+       
+       updateList();
+    }
+
+    private void updateList() {
     }
 
     private Component getContent() {
-        return null;
+        HorizontalLayout content = new HorizontalLayout(grid,contactForm);
+        content.setFlexGrow(2,grid);
+        content.setFlexGrow(1,contactForm);
+        content.addClassName("content");
+        content.setSizeFull();
+       return  content;
     }
 
     private void configureForm() {
